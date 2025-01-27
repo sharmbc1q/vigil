@@ -1,0 +1,34 @@
+# General
+
+*.pyc
+*.pyo
+__pycache__/
+
+# Environments
+.env
+venv/
+.env.*
+
+# Logs and Cache
+*.log
+*.cache
+*.tmp
+
+# OS-specific artifacts
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+/.vscode/
+.idea/
+
+# Compiled Python files
+*.py[co]
+
+# History/Data files
+conversation_history.json
+
+# Other
+*.swp
+*.bak
+*.orig
