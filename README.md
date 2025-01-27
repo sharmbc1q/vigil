@@ -34,7 +34,7 @@ Ensure you have the following installed and configured:
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/your-username/vigil.git
-   cd vigil-ai
+   cd vigil
    ```
 
 2. **Set Up a Python Virtual Environment**
