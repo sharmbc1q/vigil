@@ -10,5 +10,5 @@ class Settings:
     PERPLEXITY_API_KEY = os.getenv("PERPLEXITY_API_KEY")
     PREFIX = "!"
     HISTORY_FILE = "conversation_history.json"
-
+    DATABASE_URL = os.getenv("DATABASE_URL")
 settings = Settings()

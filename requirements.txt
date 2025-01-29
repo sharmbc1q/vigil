@@ -1,5 +1,8 @@
-discord.py>=2.3.2
-anthropic>=0.17.1
-python-dotenv>=1.0.0
-httpx>=0.26.0
-audioop-lts>=0.2.1
+anthropic==0.45.2
+discord.py==2.4.0
+httpx==0.28.1
+python-dotenv==1.0.1
+pytz==2024.2
+Requests==2.32.3
+SQLAlchemy==2.0.36
+audioop-lts==0.2.2

@@ -7,7 +7,7 @@ Vigil is an AI-powered Discord bot with a playful, adventurous personality desig
 ## 🔥 Features
 
 - **Dynamic AI Conversations**: Uses Anthropics Claude AI to generate charming and confident responses, perfectly fitting the mood of any Discord server.
-- **Web Search Integration**: Dynamically checks whether a user’s query needs additional web information and fetches it using Perplexity AI.
+- **Web Search Integration**: Dynamically checks whether a user's query needs additional web information and fetches it using Perplexity AI.
 - **Image Generation**: Generates custom AI art via Leonardo AI directly in the chat.
 - **Conversation History**: Tracks and saves user interactions for context-aware conversations.
 
@@ -56,7 +56,40 @@ Ensure you have the following installed and configured:
      ANTHROPIC_API_KEY=your_anthropic_api_key
      LEONARDO_API_KEY=your_leonardo_api_key
      PERPLEXITY_API_KEY=your_perplexity_api_key
+     DATABASE_URL=postgresql://user:password@host:port/dbname  # Supabase connection string
      ```
+   - For Supabase setup:
+     1. Create a new project at supabase.com
+     2. Go to Database → Settings → Connection String (use Pooling mode)
+     3. Run this SQL in the SQL Editor to create tables:
+        ```sql
+        -- Create short_term_memories table
+        CREATE TABLE short_term_memories (
+            id SERIAL PRIMARY KEY,
+            user_id BIGINT NOT NULL,
+            user_message TEXT NOT NULL,
+            bot_response TEXT NOT NULL,
+            creation_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+            expiration_time TIMESTAMPTZ NOT NULL
+        );
+        
+        -- Create index for expiration time
+        CREATE INDEX idx_short_term_expiration ON short_term_memories (expiration_time);
+        
+        -- Create long_term_memories table 
+        CREATE TABLE long_term_memories (
+            id SERIAL PRIMARY KEY,
+            user_id BIGINT NOT NULL,
+            server_id BIGINT,
+            type VARCHAR(50) NOT NULL,
+            content TEXT NOT NULL,
+            importance INTEGER NOT NULL DEFAULT 1,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+        
+        -- Create composite index for user/server filtering
+        CREATE INDEX idx_user_server ON long_term_memories (user_id, server_id);
+        ```
 
 ---
 
@@ -69,7 +102,7 @@ python main.py
 ```
 
 ### Interactions
-Here’s how to interact with Vigil:
+Here's how to interact with Vigil:
 
 #### **Mention Vigil for a Chat**
 - Mention Vigil in a message to start a conversation. Example:
@@ -84,19 +117,22 @@ Here’s how to interact with Vigil:
   ```
 
 #### **Sample Responses**
-- Customize responses based on Vigil’s playful personality:
+- Customize responses based on Vigil's playful personality:
   - *"Looking for an answer? Let me check the web for you!"*
-  - *"I’d rather charm you than bore you with long answers 😉."*
+  - *"I'd rather charm you than bore you with long answers 😉."*
 
 ---
 
 
 ## 🛠️ Technologies Used
 
-- **[discord.py](https://discordpy.readthedocs.io/)**: Interface with Discord’s APIs.
+- **[discord.py](https://discordpy.readthedocs.io/)**: Interface with Discord's APIs.
 - **[Anthropic SDK](https://www.anthropic.com/)**: For AI message generation and contextual conversation support.
 - **[python-dotenv](https://pypi.org/project/python-dotenv/)**: Manage environment variables securely.
 - **[httpx](https://www.python-httpx.org/)**: Asynchronous HTTP requests for external API integration.
+- **[Supabase](https://supabase.com/)**: PostgreSQL database hosting and management.
+- **[SQLAlchemy](https://www.sqlalchemy.org/)**: ORM for database interactions and async support.
+- **[PostgreSQL](https://www.postgresql.org/)**: Relational database system for memory storage.
 
 ---
 
