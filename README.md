@@ -21,11 +21,13 @@ Follow these steps to set up and run Vigil on your local machine.
 
 Ensure you have the following installed and configured:
 - Python 3.10+ 🐍
+- PostgreSQL database (local or via Supabase) 🐘
 - A Discord bot token (create one in the [Discord Developer Portal](https://discord.com/developers/applications))
 - API keys for:
   - Anthropics Claude AI
   - Perplexity AI
   - Leonardo AI
+- Supabase account for database hosting (free tier works) 🔑
 - `pip` for installing dependencies
 - (Optional) Virtual environment setup knowledge
 
